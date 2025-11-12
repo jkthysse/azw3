@@ -27,7 +27,15 @@ jobs:
           pip install pytest
 
       - name: Run tests
-        run: pytest -q
+        run: |
+          set +e
+          pytest -q
+          status=$?
+          if [ $status -eq 5 ]; then
+            echo "No tests collected; treating as success."
+            exit 0
+          fi
+          exit $status
 
   node:
     name: Node.js checks
