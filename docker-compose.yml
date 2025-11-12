@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  azw3-pipeline:
+    build: .
+    image: azw3/pipeline:latest
+    container_name: azw3-pipeline
+    environment:
+      - RPC_ENDPOINT=${RPC_ENDPOINT:-https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY}
+      - STORAGE_BACKEND=${STORAGE_BACKEND:-file}
+      - STORAGE_BUCKET=${STORAGE_BUCKET:-}
+      - STORAGE_REGION=${STORAGE_REGION:-us-east-1}
+    volumes:
+      - ./data:/app/data
+      - ./config.yaml:/app/config.yaml
+    restart: unless-stopped
+    networks:
+      - azw3-network
+
+networks:
+  azw3-network:
+    driver: bridge
+

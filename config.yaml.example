@@ -1,0 +1,33 @@
+ingestion:
+  sources:
+    - type: websocket
+      endpoint: wss://eth-mainnet.g.alchemy.com/v2/YOUR_KEY
+    - type: historical
+      endpoint: https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY
+      start_block: 0
+    - type: api
+      provider: thegraph
+  batch_size: 1000
+  max_retries: 3
+
+storage:
+  backend: file  # or s3, postgres, mongodb
+  bucket: null
+  region: us-east-1
+  connection_string: ./data
+
+processing:
+  medallion:
+    bronze:
+      retention_days: 365
+    silver:
+      validation: strict
+    gold:
+      feature_store: feast
+
+mlops:
+  orchestration: airflow
+  model_tracking: mlflow
+  feature_store: feast
+  compute: kubernetes
+

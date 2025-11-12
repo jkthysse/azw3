@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Data Pipeline for Model Ingestion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-primary: #004FF9;
+            --color-secondary: #00D1FF;
+            --color-accent: #FFAA00;
+            --color-bg: #F6F9FF;
+            --color-text: #333333;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .stat-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold" style="color: var(--color-primary);">📊</span>
+                    <span class="font-bold ml-2 text-lg" style="color: var(--color-text);">Web3 Data Pipeline</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#ingestion" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100">Ingestion</a>
+                        <a href="#process" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100">Process</a>
+                        <a href="#features" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100">Features</a>
+                        <a href="#consumption" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100">Consumption</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+
+        <section class="text-center my-12 md:my-16">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4" style="color: var(--color-primary);">
+                From Chaos to Clarity
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                How we transform high-volume, chaotic blockchain data into structured, actionable features for Machine Learning.
+            </p>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div id="ingestion" class="stat-card md:col-span-1 lg:col-span-1">
+                <h2 class="text-xl font-bold mb-4" style="color: var(--color-primary);">The Core Challenge</h2>
+                <p class="text-gray-600 mb-4">Blockchains generate millions of transactions and events daily, creating a massive data throughput challenge.</p>
+                <div class="text-center py-4">
+                    <div class="text-6xl font-extrabold" style="color: var(--color-accent);">1.5+ TB</div>
+                    <div class="text-lg font-semibold text-gray-700">Raw Data Daily</div>
+                    <p class="text-sm text-gray-500">(e.g., Ethereum Mainnet)</p>
+                </div>
+            </div>
+
+            <div class="stat-card md:col-span-1 lg:col-span-2">
+                <h2 class="text-xl font-bold mb-4" style="color: var(--color-primary);">Stage 1: Data Ingestion Sources</h2>
+                <p class="text-gray-600 mb-4">The pipeline begins by tapping into multiple data streams. We don't just pull from one source; we synthesize real-time events, historical blocks, and crucial off-chain context.</p>
+                <div class="chart-container">
+                    <canvas id="ingestionDonutChart"></canvas>
+                </div>
+            </div>
+            
+            <div id="process" class="stat-card md:col-span-2 lg:col-span-3">
+                <h2 class="text-xl font-bold mb-4 text-center" style="color: var(--color-primary);">Stage 2: The Medallion Architecture Process</h2>
+                <p class="text-gray-600 max-w-4xl mx-auto text-center mb-8">We don't use raw data for ML. We refine it through a 3-step process, turning immutable, uncleaned data into validated, feature-rich tables. This ensures data quality and reliability.</p>
+                
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-4">
+                    
+                    <div class="flex-1 text-center">
+                        <div class="p-6 rounded-lg shadow-inner" style="background-color: #B3C5FF; border: 2px solid var(--color-primary);">
+                            <div class="text-lg font-extrabold" style="color: var(--color-primary);">BRONZE</div>
+                            <div class="text-sm font-semibold mb-2">Raw Ingestion</div>
+                            <p class="text-xs text-gray-700">Full blocks, raw transactions, and un-decoded logs are dumped here. Immutable, uncleaned, and schema-on-read.</p>
+                        </div>
+                    </div>
+
+                    <div class="text-4xl font-bold transform md:rotate-0" style="color: var(--color-accent);">▼</div>
+
+                    <div class="flex-1 text-center">
+                        <div class="p-6 rounded-lg shadow-inner" style="background-color: #A0DFFF; border: 2px solid var(--color-secondary);">
+                            <div class="text-lg font-extrabold" style="color: var(--color-primary);">SILVER</div>
+                            <div class="text-sm font-semibold mb-2">Cleaned & Normalized</div>
+                            <p class="text-xs text-gray-700">Raw data is decoded using Smart Contract ABIs. Transactions are filtered, cleaned, and structured into validated tables.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-4xl font-bold transform md:rotate-0" style="color: var(--color-accent);">▼</div>
+
+                    <div class="flex-1 text-center">
+                        <div class="p-6 rounded-lg shadow-inner" style="background-color: #FFEBB3; border: 2px solid var(--color-accent);">
+                            <div class="text-lg font-extrabold" style="color: var(--color-primary);">GOLD</div>
+                            <div class="text-sm font-semibold mb-2">Feature Store Ready</div>
+                            <p class="text-xs text-gray-700">Silver data is aggregated into time-series and behavioral features (e.g., TVL, user frequency). Ready for ML.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="features" class="stat-card md:col-span-1 lg:col-span-2">
+                <h2 class="text-xl font-bold mb-4" style="color: var(--color-primary);">Stage 3: Feature Engineering (Gold Layer)</h2>
+                <p class="text-gray-600 mb-4">This is where data becomes intelligence. We aggregate data into key categories that our models use to find patterns. Financial and temporal features are currently the most critical drivers for prediction models.</p>
+                <div class="chart-container">
+                    <canvas id="featureBarChart"></canvas>
+                </div>
+            </div>
+
+            <div class="stat-card md:col-span-1 lg:col-span-1">
+                <h2 class="text-xl font-bold mb-4" style="color: var(--color-primary);">Temporal Feature Example</h2>
+                <p class="text-gray-600 mb-4">By aggregating data into time-series, we can track network health and user behavior, like the average gas price, which directly impacts user activity and model predictions.</p>
+                 <div class="chart-container">
+                    <canvas id="temporalLineChart"></canvas>
+                </div>
+            </div>
+            
+            <div id="consumption" class="stat-card md:col-span-1 lg:col-span-1">
+                <h2 class="text-xl font-bold mb-4" style="color: var(--color-primary);">Stage 4: Consumption & ML Use Cases</h2>
+                <p class="text-gray-600 mb-4">The final "Gold" data feeds a variety of ML models. Our pipeline is built to be highly effective for tasks involving anomaly detection and time-series price prediction.</p>
+                 <div class="chart-container">
+                    <canvas id="useCaseRadarChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="stat-card md:col-span-1 lg:col-span-2">
+                <h2 class="text-xl font-bold mb-4" style="color: var(--color-primary);">The MLOps Tool Stack</h2>
+                <p class="text-gray-600 mb-6">This entire process is managed and automated by a modern MLOps tool stack, ensuring pipelines are scheduled, models are versioned, and training is scalable.</p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start p-4 rounded-lg" style="background-color: var(--color-bg);">
+                        <span class="text-3xl mr-4">⚙️</span>
+                        <div>
+                            <h3 class="font-bold text-lg" style="color: var(--color-primary);">MLOps Orchestration</h3>
+                            <p class="text-gray-600">Tools like **Airflow** or **Dagster** schedule the pipeline runs, ensuring data is refreshed automatically and dependencies are managed.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start p-4 rounded-lg" style="background-color: var(--color-bg);">
+                        <span class="text-3xl mr-4">🚀</span>
+                        <div>
+                            <h3 class="font-bold text-lg" style="color: var(--color-primary);">Model Training & Versioning</h3>
+                            <p class="text-gray-600">**MLflow** tracks experiments, packages code, and versions models. **Databricks** or **AWS Sagemaker** provide the scalable compute for training.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start p-4 rounded-lg" style="background-color: var(--color-bg);">
+                        <span class="text-3xl mr-4">🤖</span>
+                        <div>
+                            <h3 class="font-bold text-lg" style="color: var(--color-primary);">Feature Store</h3>
+                            <p class="text-gray-600">A dedicated **Feature Store** (like Feast) ensures consistency between training data and the data used for real-time predictions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="mt-16 text-center py-8 border-t border-gray-200">
+        <p class="text-sm text-gray-500">&copy; 2025 Web3 Data Solutions. This infographic was generated based on the project specification.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const commonTooltipCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const processLabels = (labels) => {
+                const maxLen = 16;
+                return labels.map(label => {
+                    if (label.length <= maxLen) {
+                        return label;
+                    }
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    for (const word of words) {
+                        if ((currentLine + ' ' + word).length > maxLen && currentLine.length > 0) {
+                            lines.push(currentLine);
+                            currentLine = word;
+                        } else {
+                            currentLine = currentLine.length > 0 ? currentLine + ' ' + word : word;
+                        }
+                    }
+                    lines.push(currentLine);
+                    return lines;
+                });
+            };
+
+            const chartColors = {
+                primary: 'rgba(0, 79, 249, 0.8)',
+                primary_light: 'rgba(0, 79, 249, 0.2)',
+                secondary: 'rgba(0, 209, 255, 0.8)',
+                accent: 'rgba(255, 170, 0, 0.8)',
+                text: '#333333'
+            };
+
+            Chart.defaults.font.family = 'Inter';
+            Chart.defaults.plugins.legend.position = 'bottom';
+            Chart.defaults.color = chartColors.text;
+
+            if (document.getElementById('ingestionDonutChart')) {
+                const ctx = document.getElementById('ingestionDonutChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Real-Time Events', 'Historical Blocks', 'Off-Chain APIs'],
+                        datasets: [{
+                            label: 'Data Source',
+                            data: [45, 35, 20],
+                            backgroundColor: [
+                                chartColors.primary,
+                                chartColors.secondary,
+                                chartColors.accent
+                            ],
+                            borderWidth: 2,
+                            borderColor: var(--color-bg)
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: commonTooltipCallback
+                                }
+                            },
+                            title: {
+                                display: false,
+                                text: 'Data Ingestion Sources'
+                            }
+                        }
+                    }
+                });
+            }
+
+            if (document.getElementById('featureBarChart')) {
+                const ctx = document.getElementById('featureBarChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: processLabels(['Liquidity & Finance', 'User Behavioral', 'Temporal (Time-Series)']),
+                        datasets: [{
+                            label: 'Feature Importance Score',
+                            data: [70, 55, 80],
+                            backgroundColor: chartColors.primary,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: commonTooltipCallback
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            if (document.getElementById('temporalLineChart')) {
+                const ctx = document.getElementById('temporalLineChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+                        datasets: [{
+                            label: 'Avg. Gas Price (Gwei)',
+                            data: [45, 50, 65, 80, 70, 60, 55],
+                            borderColor: chartColors.accent,
+                            backgroundColor: 'rgba(255, 170, 0, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: false
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: commonTooltipCallback
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            if (document.getElementById('useCaseRadarChart')) {
+                const ctx = document.getElementById('useCaseRadarChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: processLabels(['Price Prediction', 'User Segmentation', 'Anomaly Detection', 'DEX Arbitrage', 'Risk Modeling']),
+                        datasets: [{
+                            label: 'Model Suitability Score',
+                            data: [8, 7, 9, 6, 8],
+                            backgroundColor: chartColors.primary_light,
+                            borderColor: chartColors.primary,
+                            borderWidth: 2,
+                            pointBackgroundColor: chartColors.primary
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 10,
+                                pointLabels: {
+                                    font: {
+                                        size: 10
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: commonTooltipCallback
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

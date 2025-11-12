@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "azw3"
+version = "1.0.0"
+description = "Web3 Data Pipeline for Model Ingestion - Stack-agnostic blockchain data processing"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "AZW3 Community"}
+]
+keywords = [
+    "web3",
+    "blockchain",
+    "data-pipeline",
+    "ml",
+    "machine-learning",
+    "ethereum",
+    "feature-engineering",
+    "medallion-architecture"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "web3>=6.0.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0.0",
+    "aiohttp>=3.9.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+mlflow = ["mlflow>=2.8.0"]
+feast = ["feast>=0.36.0"]
+airflow = ["apache-airflow>=2.7.0"]
+s3 = ["boto3>=1.28.0"]
+postgres = ["psycopg2-binary>=2.9.0"]
+mongodb = ["pymongo>=4.6.0"]
+bigquery = ["google-cloud-bigquery>=3.11.0"]
+
+[project.urls]
+Homepage = "https://github.com/jkthysse/azw3"
+Documentation = "https://docs.azw3.io"
+Repository = "https://github.com/jkthysse/azw3"
+Issues = "https://github.com/jkthysse/azw3/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+

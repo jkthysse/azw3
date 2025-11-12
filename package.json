@@ -1,0 +1,51 @@
+{
+  "name": "azw3",
+  "version": "1.0.0",
+  "description": "Web3 Data Pipeline for Model Ingestion - Stack-agnostic blockchain data processing",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node lib/index.js",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+  },
+  "keywords": [
+    "web3",
+    "blockchain",
+    "data-pipeline",
+    "ml",
+    "machine-learning",
+    "ethereum",
+    "feature-engineering",
+    "medallion-architecture"
+  ],
+  "author": "AZW3 Community",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jkthysse/azw3.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "ethers": "^6.0.0",
+    "ws": "^8.14.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0",
+    "yaml": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/ws": "^8.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.0"
+  }
+}
+
