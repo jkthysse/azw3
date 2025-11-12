@@ -54,7 +54,16 @@ jobs:
         run: npm install
 
       - name: Lint (if available)
-        run: npm run lint --if-present
+        run: |
+          if npm run | grep -q "\"lint\""; then
+            if find src -name "*.ts" -o -name "*.tsx" | grep -q .; then
+              npm run lint
+            else
+              echo "No TypeScript files detected; skipping lint."
+            fi
+          else
+            echo "No lint script defined; skipping lint."
+          fi
 
       - name: Run tests
         run: npm test -- --passWithNoTests
